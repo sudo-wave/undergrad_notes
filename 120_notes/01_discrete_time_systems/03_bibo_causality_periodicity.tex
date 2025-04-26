@@ -1,0 +1,42 @@
+\section{BIBO Stability, Causality, \& Periodicity}
+\begin{itemize}
+	\item \textbf{Periodicity of Complex Exponentials:} For a given continuous
+	      time signal $e^{i\omega t}$, it experiences $\frac{2\pi}{\omega}$ revolutions per second,
+	      then $\omega$ denotes the radians per second of the signal.
+\end{itemize}
+\begin{theorem}[Continuous Time Periodicity]~
+
+	We say that, $x: \mathbb{R} \to \mathbb{R}$ is $T$ periodic if
+	$\exists\ T\ \mathrm{s.t.}\ x(t +T) = x(t),\ \forall t \in \mathbb{R}$.
+\end{theorem}
+\begin{itemize}
+	\item Smallest such positive $t$ is called the
+	      \textbf{fundamental period} in continuous time.
+	\item The \textbf{fundamental frequency} is given by $f_0 = \frac{1}{T}$
+	      and $\omega = \frac{2\pi}{T}$ has units of fundamental frequency, i.e.,
+	      $\omega_0 = 2\pi f_0$.
+	\item $e^{i\omega t}$ is periodic in t with fundamental period $T = \frac{2\pi}{\omega}$,
+	      thus it is not periodic in $\omega$.
+\end{itemize}
+\begin{theorem}[Discrete Time Periodicity]~
+
+	Say that $x: \mathbb{Z} \to \mathbb{R}$
+	is $N$ periodic if $\exists\ N \ \mathrm{s.t.}\ x(n+N) = x(n),\ \forall\ n \in \mathbb{Z}$.
+\end{theorem}
+\begin{itemize}
+	\item Small such positive $N$ is the fundamental period in discrete time.
+	\item $f_{0} = \frac{1}{N}$ is the fundamental frequency in discrete time
+	      and $\omega = \frac{2\pi}{N}$ has units of fundamental frequency, i.e.,
+	      $\omega_0 = w\pi f_0$.
+	\item $e^{i\omega n}$ is periodic in $\omega$ with fundamental period
+	      $2\pi$, i.e., it is only periodic in $n$ if $\omega$ is a rational
+	      multiple of $\pi$:
+	      \begin{align*}
+		      e^{i\omega(n+N))} & = e^{i\omega n}     \\
+		      e^{i\omega N}     & = 1                 \\
+		      \omega N          & = 2\pi k            \\
+		      \omega            & = \frac{2\pi k}{N}  \\
+		                        & = (\frac{2\pi}{N})k
+	      \end{align*}
+	      therefore $\omega$ must be a rational multiple.
+\end{itemize}

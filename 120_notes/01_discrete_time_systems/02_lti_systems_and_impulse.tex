@@ -1,0 +1,142 @@
+\section{LTI Systems \& Impulse Response}
+\begin{definition}[Systems]~
+
+	Similar to signals we say that systems are functions. That is,
+	$x\longrightarrow H \longrightarrow y$ where $x$ is our input
+	signal and $y$ is the corresponding output signal after $x$
+	"passes" through the system $H$.
+
+	More formally, we define $\mathbb{X}$ to be the input signal space and
+	$\mathbb{Y}$ to be the output signal space. Thus, $y = H(x)$ where
+	$x \in \mathbb{X},\ y \in \mathbb{Y}$.
+\end{definition}
+\begin{itemize}
+	\item \textbf{Systems Properties:} (1) Linearity (or Superposition) and
+	      (2) Time Invariance.
+	\item \textbf{Linearity:} System $H$ is said to be linear if
+	      it satisfies both the scaling and additivity property.
+	      \begin{enumerate}
+		      \item Scaling: The output of a weighted input must be scaled by
+		            the weight of that input, i.e.,
+		            $\alpha x \longrightarrow H \longrightarrow \alpha y,\
+			            \forall x \in \mathbb{X},\ \forall \alpha \in \mathbb{R}/\mathbb{C}$.
+		      \item Additivity: The system is additive if it satisfies
+		            the below,
+		            \[
+			            x_1 \longrightarrow H \longrightarrow y_1
+			            \quad \text{ and } \quad
+			            x_2 \longrightarrow H \longrightarrow{y_1}
+			            \quad \text{ then } \quad
+			            x_1 + x_2 \longrightarrow H \longrightarrow y_1 + y_2
+		            \]
+		            for all $x_1, x_2 \in \mathbb{X}$.
+	      \end{enumerate}
+	      The notion of \textbf{superposition} occurs when the scaling and
+	      additive properties are combined in one step, i.e.,
+	      \[
+		      \alpha x_1 + \beta x_2 \longrightarrow H \longrightarrow \alpha y_1 + \beta y_2
+	      \]
+	      for all $\alpha, \beta \in \mathbb{R}/\mathbb{C}$ and for all
+	      $x_1, x_2 \in \mathbb{X}$.
+	\item \textbf{Time Invariance:} If input $\hat{x}(n) = x(n-N)$ for
+	      $N \in \mathbb{Z}$, then if $\hat{y}(n) = y(n-N),\ \forall x \in \mathbb{X}$
+	      and $\forall N \in \mathbb{Z}$, the system $H$ is time invariant.
+	\item \textbf{Zero Input - Zero Output (ZIZO):} If our input is zero then
+	      the output must be zero, and if this does not hold then the system
+	      is nonlinear.
+	\item \textbf{LTI Systems:} Are systems that possess both linearity and
+	      time invariance.
+	\item If the input signal $x(n) = \delta(n)$, then $y(n) \triangleq h(n)$
+	      where $h(n)$ is called the \textbf{impulse response} of the system.
+\end{itemize}
+\begin{theorem}
+	Given that we now the impulse response of an LTI system, we then know
+	the system response to any arbitrary input $x$.
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\delta(n) \longrightarrow                                 & \ H \longrightarrow h(n)                                 \\
+		\delta(n-k) \longrightarrow                               & \ H \longrightarrow h(n-k)                               \\
+		x(k) \delta(n-k) \longrightarrow                          & \ H \longrightarrow x(k) h(n-k)                          \\
+		\sum_{k=-\infty}^{\infty} x(k)\delta(n-k) \longrightarrow & \ H \longrightarrow \sum_{k=-\infty}^{\infty} x(k)h(n-k)
+	\end{align*}
+	where $x(n) = \sum_{k=-\infty}^{\infty} x(k)\delta(n-k)$ and $y(n) = \sum_{k=-\infty}^{\infty} x(k)h(n-k)$.
+\end{proof}
+\begin{itemize}
+	\item \textbf{DT-LTI Systems:} Are a result of the above proof,
+	      \[
+		      x(n) \longrightarrow H \longrightarrow y(n) = \sum_{k=-\infty}^{\infty} x(k)h(n-k)
+	      \]
+	      where we define $y$ to be the convolution between $x$ and $h$,
+	      \begin{equation}
+		      y(n) = (x * h)(n) = \sum_{k=-\infty}^{\infty} x(k)h(n-k)
+		      .\end{equation}
+	\item Convolution is commutative:
+	      \begin{align*}
+		      y(n) & = (x * h)(n)                           \\
+		           & = \sum_{k=-\infty}^{\infty} x(k)h(n-k) \\
+		           & = \sum_{m=-\infty}^{\infty} x(n-m)h(m) \\
+		           & = (h * x)(n)
+	      \end{align*}
+	\item If $x(n) \longrightarrow F \longrightarrow G \longrightarrow y(n)$,
+	      then we define an intermediate signal $q(n) = (x * f)(n)$.
+	      Then, $y(n) = (q * g)(n) = (x * f * g)(n) = (x * h)(n)$ where
+	      $h(n) = (f * g)(n)$ is the impulse response of a "bigger" system
+	      $H$.
+	\item Two systems in series (cascaded) is an LTI system.
+	\item $\delta(n)$ also referred as the identity element in discrete time,
+	      and $(\delta * h)(n) = (h * \delta)(n) = h(n)$.
+	\item \textbf{Euler's Formula}: $e^{i\theta} = \cos\theta + i\sin\theta$.
+	\item \textbf{Inverse Euler's Formula:}
+	      \begin{equation}
+		      \cos\theta = \frac{e^{i\theta} + e^{i\theta}}{2}
+	      \end{equation}
+	      \begin{equation}
+		      \sin\theta = \frac{e^{i\theta} - e^{-i\theta}}{2i}
+	      \end{equation}
+	\item \textbf{Frequency Response of an LTI System:} From previous observations
+	      we know the following two facts:
+	      \[
+		      x(n) = \delta(n) \longrightarrow H \longrightarrow y(n) = h(n)
+	      \]
+	      where $x(n)$ is "activated" only when $n=0$ and more generally,
+	      \[
+		      x(n) \longrightarrow H \longrightarrow y(n) = (x * h)(n)
+		      .\]
+	      If $x(n)$ were to be "active" for every time value of $n$, then
+	      \[
+		      x(n) = e^{i\omega n} \longrightarrow H \longrightarrow y(n)
+	      \]
+	      where
+	      \begin{align*}
+		      y(n) & = (x * h)(n)                                                  \\
+		           & = \sum_{k=-\infty}^{\infty} e^{i\omega k}h(n-k)               \\
+		           & = e^{i\omega n}\ \sum_{m=-\infty}^{\infty} h(m)e^{-i\omega m}
+		      .\end{align*}
+	      The term $\sum_{m=-\infty}^{\infty} h(m)e^{-i\omega m}$ is a constant
+	      that only depends on $\omega$. Thus, the frequency response of the
+	      system is,
+	      \begin{equation}
+		      H(\omega) \triangleq \sum_{m=-\infty}^{\infty} h(m)e^{-i\omega m}
+		      .\end{equation}
+	\item Similar idea to eigenvalues, $A \vec{x} = \lambda \vec{x}$,
+	      where $A$ is the system response, $H(\omega)$ is the eigenvalue, and
+	      our complex exponential is $\vec{x}$.
+	\item Think of $H(\omega)$ as a scaling object.
+	\item \textbf{Eigenfunction Property:} Denote our input signal as the
+	      complex exponential $e^{i\omega n}$ which is the
+	      eigenfunction with respect to the DT-LTI system. It follows that,
+	      \[
+		      e^{i\omega n} \longrightarrow H \longrightarrow H(\omega)e^{i\omega n}
+		      .\]
+	\item Note that a large class of signals of interest can be written
+	      as a linear combination of complex exponentials (Fourier Analysis).
+	\item The frequency response of a DT-LTI system is $2\pi$ periodic,
+	      \[
+		      H(\omega + 2\pi) = \sum_{n=-\infty}^{\infty} h(n)e^{-i(\omega+2\pi)n} = \sum_{n=-\infty}^{\infty} h(n)e^{-i\omega n}
+		      .\]
+	      When analyzing the frequency response of a system only focus
+	      on $\omega \in (0,2\pi)$ or $\omega \in (-\pi, \pi)$.
+	\item More generally, $H(\omega)$ is $2\pi n$ periodic $\forall\ n \in \mathbb{Z}$.
+	\item From above, $H(\omega)$ has fundamental period $2\pi$.
+\end{itemize}

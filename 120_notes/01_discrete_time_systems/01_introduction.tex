@@ -1,0 +1,71 @@
+\section{Introduction}
+\begin{definition}[Signal]~
+
+	A signal is a function. That is, for some signal $x$ we take as
+	input an element from $\mathbb{R}$ or $\mathbb{Z}$ and output either a
+	$\mathbb{R}$ or $\mathbb{C}$ number.
+\end{definition}
+\begin{itemize}
+	\item Put simply, signals follow the funcition rule that tells us what
+	      mapping the function in question should follow.
+	\item From this, we abide by the convention that whenever the domain
+	      of our signal is $\mathbb{Z}$ we are working in discrete time.
+	      Conversely, if the domain is $\mathbb{R}$ we will be in
+	      continuous time.
+\end{itemize}
+\begin{definition}[Kronecker Delta a.k.a. Discrete Time Impulse]
+	\[
+		\delta(n) = \begin{cases}
+			1, & \text{ if }n=0 \\
+			1, & \text{ if }n<0
+		\end{cases}
+		.\]
+\end{definition}
+\begin{definition}[Discrete Time Unit Step]
+	\[
+		u(n) = \begin{cases}
+			1, & \text{ if }n\ge0 \\
+			0, & \text{ if }n<0
+		\end{cases}
+		.\]
+\end{definition}
+\begin{definition}[Continuous Time Unit Step]
+	\[
+		u(t) = \begin{cases}
+			1, & \text{ if }t\ge 0 \\
+			0, & \text{ if }t<0
+		\end{cases}
+		.\]
+\end{definition}
+\begin{theorem}
+	Any discrete time signal can be decomposed into a linear combination of
+	shifted impulses. It follows that, the unit step function can be
+	reinterpreted as
+	\[
+		u(n) = \sum_{k=0}^{\infty} \delta(n-k)
+		.\]
+\end{theorem}
+\begin{theorem}
+	Immediately from above, we say that any discrete time signal can be
+	expressed as a linear combination of shifted impulses.
+	\[
+		u(n) = \sum_{k=0}^{\infty} \delta(n-k) = \sum_{m=-\infty}^{n} \delta(m)
+		.\]
+\end{theorem}
+\begin{itemize}
+	\item In discrete time, the unit step is the cumulative sum of Kronecker
+	      deltas. A similar concept to that of the integral.
+	\item We can represent $\delta(n)$ in terms of shifted $u(n)$'s as
+	      \[
+		      \delta(n) = u(n) - u(n-1)
+		      .\]
+	      Note that
+	      \[
+		      \delta(n) = \frac{u(n) - u(n-1)}{n-(n-1)} = u(n) - u(n-1)
+		      .\]
+	      It suffices to say that this is similar to the
+	      derivative.
+	\item Therefore, in discrete time $\delta(n)$ is known as the
+	      discrete time derivative of the impulse signal
+	      and $u(n)$ is it's integral.
+\end{itemize}

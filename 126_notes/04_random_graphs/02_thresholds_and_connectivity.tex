@@ -1,1 +1,42 @@
 \section{Thresholds and Connectivity}
+When $p_{n}$ is below $\log_{e} n \implies$ no connectivity,
+$P(\text{connectivity}) \longrightarrow 0$. Otherwise, if
+$p_{n}$ is above $\log_{e} n \implies$ ensures connectivity,
+$P(\text{connectivity}) \longrightarrow 0$.
+\begin{center}
+	\begin{tikzpicture}[node distance=4cm, every node/.style={inner sep=0}]
+		% disconnected
+		\node (D) {
+			\begin{tikzpicture}[scale=0.8]
+				\draw (0,0) rectangle (5,3);
+				% a few small components
+				\foreach \x/\y in {1/2,1.5/2.2,2/1.8}{
+						\fill (\x,\y) circle (2pt);
+					}
+				\draw (1,2) -- (1.5,2.2);
+				\foreach \x/\y in {3.5/1,4/1.3,4.5/0.8}{
+						\fill (\x,\y) circle (2pt);
+					}
+				\draw (3.5,1) -- (4,1.3);
+			\end{tikzpicture}
+		};
+		\node[below=2mm of D] {\small Disconnected: $p< \frac{\log_{e} n}{n}$};
+
+		% connected
+		\node[right=of D] (C) {
+			\begin{tikzpicture}[scale=0.8]
+				\draw (0,0) rectangle (5,3);
+				% a path through all nodes
+				\foreach \i in {1,...,5}{
+						\coordinate (N\i) at (\i-1,1.5);
+						\fill (N\i) circle (2pt);
+					}
+				\foreach \i in {1,...,4}{
+						\pgfmathtruncatemacro\next{\i+1}
+						\draw (N\i) -- (N\next);
+					}
+			\end{tikzpicture}
+		};
+		\node[below=2mm of C] {\small connected ($p>(1+\varepsilon)\tfrac{\log n}{n}$)};
+	\end{tikzpicture}
+\end{center}

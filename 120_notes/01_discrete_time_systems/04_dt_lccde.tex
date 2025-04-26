@@ -1,0 +1,15 @@
+\section{Discrete Time Difference Equations}
+\begin{itemize}
+	\item \textbf{Finite Impulse Response:} Example is the two point moving
+	      average filter,
+	      \[
+		      y(n) = \frac{1}{2}x(n) + \frac{1}{2}x(n-1)
+	      \]
+	      with corresponding impulse response $h(n) = \frac{\delta(n) + \delta(n-1)}{2}$.
+	\item \textbf{Infinite Impulse Response:} Example is the exponentially
+	      weighted average filter,
+	      \[
+		      y(n) = x(n) + \alpha y(n-1)
+	      \]
+	      with impulse response $h(n) = \alpha^n u(n)$.
+\end{itemize}
