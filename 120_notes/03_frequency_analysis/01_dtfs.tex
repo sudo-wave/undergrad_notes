@@ -1,1 +1,114 @@
 \section{Discrete Time Fourier Series}
+\begin{itemize}
+	\item Start by representing signals $x(n)$ as vectors, e.g.,
+	      \[
+		      \bm{x} =
+		      \begin{pmatrix}
+			      x(0) & x(1) & x(2) & \ldots & x(p-1)
+		      \end{pmatrix}^T
+	      \]
+	      where $p$ is the period of $x(n)$.
+	\item Consider the case when $p=2$, then $\bm{x} =
+		      \begin{pmatrix}
+			      x(0) & x(1)
+		      \end{pmatrix}^T$.
+	      But, we can further decompose $\bm{x}$ into a linear combination
+	      of weighted basis vectors. The basis vectors for when $p=2$ are
+	      \[
+		      \bm{\varphi}_{0} =
+		      \begin{pmatrix}
+			      1 \\
+			      0
+		      \end{pmatrix}
+		      \quad \text{and} \quad
+		      \bm{\varphi}_1 =
+		      \begin{pmatrix}
+			      0 \\
+			      1
+		      \end{pmatrix}
+		      .\]
+	      It follows that, $\bm{x} = \alpha_0\ \bm{\varphi_0} + \alpha_1\ \bm{\varphi_1}$
+	      for some $\alpha_0, \alpha_1 \in \mathbb{Z}$.
+	\item In Fourier analysis, instead of using the standard basis to represent
+	      the signal $x(n)$, we use another basis (i.e., change of basis)
+	      with respect to the Fourier basis vectors
+	      $\bm{\psi}_0,\ \bm{\psi}_1,\ \ldots,\ \bm{\psi}_{p-1}$.
+	\item Define $\psi_0(n) = e^{i0n}$ and $\psi_1(n) = e^{i\pi n}$, then
+	      a $2$-periodic signal can be written as
+	      \[
+		      x(n) = X_0 \psi_0(n) + X_1 \psi_1(n) = X_0\ e^{i0n} + X_1\ e^{i\pi n}
+	      \]
+	      with respect to the Fourier coefficients $X_0, X_1$.
+	\item \textbf{Note:} Only need $2$ frequencies to characterize $x(n)$,
+	      both of which are integer multiples of $\pi$.
+	\item More generally, if a signal is $p$-periodic, the only contributing
+	      frequencies are
+	      \[
+		      \{0,\ \omega_0,\ 2\omega_0,\ \ldots,\ (p-1)\ \omega_0\}
+		      .\]
+	\item As a consequence, if
+	      $x(n+p) = x(n),\ \forall\ n \in \mathbb{Z},\ \exists\ p \in \{1,2,\ldots\}$,
+	      then
+	      \begin{equation}
+		      x(n) = X_0e^{i 0\omega_0 n} + X_1e^{i 1\omega_0 n} + \ldots + X_{p-1}e^{i(p-1)\omega_0 n}
+		      .\end{equation}
+	\item  \textbf{Note:} Only need $(p-1)$ Fourier coefficients since,
+	      $e^{ip\omega_0n} = e^{ip\frac{2\pi}{p}n} = e^{i2\pi n} = 1$ for all $n \in \mathbb{Z}$.
+	\item Going back to the case when $p=2$, we have that
+	      \[
+		      \bm{x} = X_0\bm{\psi}_0 + X_1\bm{\psi}_1
+		      .\]
+	      In order to change bases, from the standard basis of $x(n)$ to
+	      the Fourier basis, we project $\bm{x}$ onto the Fourier basis
+	      vectors in order to find the Fourier coefficients.
+	      Projecting $\bm{x}$ onto $\bm{\psi}_0$ yields
+	      \begin{align*}
+		      \bm{x} \cdot \bm{\psi}_0 & = (X_0\bm{\psi}_0 + X_1\bm{\psi}_1) \cdot \bm{\psi}_0                     \\
+		                               & = X_0(\bm{\psi}_0 \cdot \bm{\psi}_0) + X_1(\bm{\psi}_1 \cdot \bm{\psi}_0) \\
+		                               & = X_0(\bm{\psi}_0 \cdot \bm{\psi}_0)
+		      .\end{align*}
+	      Therefore,
+	      \[
+		      X_0 = \frac{\bm{x} \cdot \bm{\psi}_0}{\bm{\psi}_0 \cdot \bm{\psi}_0} \qquad
+		      \text{and} \qquad
+		      X_1 = \frac{\bm{x} \cdot \bm{\psi}_1}{\bm{\psi}_1 \cdot \bm{\psi}_1}
+		      .\]
+	\item \textbf{Note:} Our signals are complex exponentials
+	      (i.e., need not be only real-valued) so the dot product does not
+	      generalize to complex vectors. Replace the dot product with the
+	      inner product to bring geometry back into the signal space.
+	\item Define our inner product as
+	      \[
+		      \langle \bm{f}, \bm{g} \rangle = f^Tg^* = \sum_{k=0}^{p-1} f_{k}g^*_{k}
+		      .\]
+	\item We do this because we have knowledge about vector spaces and
+	      their properties, which allows us to incorporate our vector
+	      space with an inner product to develop the notion of \textbf{norms}
+	      and \textbf{orthogonality}.
+	\item Recall that an inner product over a vector space $\mathbb{E}$ over
+	      $\mathbb{C}$ or $\mathbb{R}$ is defined as
+	      $\langle \cdot, \cdot \rangle : \mathbb{E} \times \mathbb{E} \longrightarrow \mathbb{C}$
+	      with the following properties:
+	      \begin{enumerate}
+		      \item $\langle \bm{x} + \bm{y}, \bm{z} \rangle = \langle \bm{x}, \bm{z} \rangle + \langle \bm{y}, \bm{z} \rangle$
+		      \item $\langle \alpha\bm{x}, \bm{y} \rangle = \alpha\langle \bm{x},\bm{y} \rangle$;
+		            $\langle \bm{x}, \alpha\bm{y} \rangle = \alpha^*\langle \bm{x},\bm{y} \rangle$
+		      \item $\langle \bm{x},\bm{y} \rangle^* = \langle \bm{y}, \bm{x} \rangle$
+		      \item $\langle \bm{x},\bm{x} \rangle \ge 0 \text{ and } \langle \bm{x},\bm{x} \rangle = 0 \iff \bm{x} = \bm{0}$
+	      \end{enumerate}
+	\item The \textbf{norm} of a vector is defined as
+	      $\left\lVert \bm{x} \right\lVert = \sqrt{\langle \bm{x},\bm{x} \rangle}$,
+	      with the properties:
+	      \begin{enumerate}
+		      \item $\left\lVert \bm{x} \right\rVert \ge 0$
+		      \item $\left\lVert \alpha\bm{x} \right\rVert = \left| \alpha \right| \left\lVert \bm{x} \right\rVert$
+		      \item $\left\lVert \bm{x} + \bm{y} \right\rVert \le \left\lVert \bm{x} \right\rVert + \left\lVert \bm{y} \right\rVert$
+	      \end{enumerate}
+	\item Two vectors are \textbf{orthogonal} to each other if
+	      $\langle \bm{x},\bm{y} \rangle = 0$.
+	\item With all this in mind we can formally define an inner product over
+	      a vetor space of signals ($p$-periodic signals):
+	      \[
+		      \forall\ n \in \mathbb{Z},\ f(n+p) = f(n) \text{ and } g(n+p) = g(n)
+		      .\]
+\end{itemize}
