@@ -1,1 +1,41 @@
 \section{Continuous Time Fourer Series}
+\begin{itemize}
+	\item Note that from here on out we will use much of the geometric
+	      intuition developed in the last section regarding
+	      a signals representation as vectors in both the time and frequency domain.
+	\item We will now discuss signals
+	      $x: \mathbb{R} \longrightarrow \mathbb{R} \text{ or } \mathbb{C}$ that
+	      are $p$-periodic, i.e., $x(t+p) = x(t),\ \forall\ t \in \mathbb{R}$ s.t.
+	      $\exists$ a smallest positive real number $p$.
+	\item Similarly to a discrete time signal the Synthesis equation of a
+	      continuous time signal is
+	      \[
+		      x(t) = \sum_{k = -\infty}^{\infty} X_{k}\psi_{k}(t)
+	      \]
+	      where $\psi_{k}(t) = e^{ik\omega_0 t}$.
+	\item Notice that we are now only periodic in the time index and
+	      not in the frequency index.
+	\item It should be obvious that the only contributing frequencies are
+	      $\{\ldots, -2\omega_0,-\omega_0,0,\omega_0,2\omega_0,\ldots\}$.
+	\item Thus, unlike in discrete time, in continuous time we have an
+	      \textbf{uncountably infinite} set of points $x(t)$ that can be decomposed
+	      into a \textbf{countably} infinite set of frequency components.
+\end{itemize}
+\begin{proof}[Proof. (Periodic in the time index)]
+	\begin{align*}
+		\psi_{k}(t+p) & = e^{ik\omega_0 (t+p)}             \\
+		              & = e^{ik\omega_0 t}e^{ik\omega_0 p} \\
+		              & = e^{ikw\omega_0 t}                \\
+		              & = \psi_{k}(t) \qedhere
+	\end{align*}
+\end{proof}
+\begin{proof}[Proof. (Not periodic in the frequency index)]
+	\[
+		\omega_{k+p}(t) = e^{i(k+p)\omega_0 t} = e^{ik\omega_0 t} e^{ip\omega_0 t}
+	\]
+	where $e^{ip\omega_0 t} = e^{i2\pi t} \neq 1\ \forall t \in \mathbb{R}$, since
+	$e^{i 2\pi t} = \cos(2\pi t) + i\sin(2\pi t) \neq 1\ \forall t$.
+
+
+	$\therefore\ \psi_{k+p}(t) \neq \psi_{k}(t)$.
+\end{proof}

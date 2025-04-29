@@ -107,8 +107,237 @@
 	\item Two vectors are \textbf{orthogonal} to each other if
 	      $\langle \bm{x},\bm{y} \rangle = 0$.
 	\item With all this in mind we can formally define an inner product over
-	      a vetor space of signals ($p$-periodic signals):
+	      a vetor space of $p$-periodic signals, that is
 	      \[
 		      \forall\ n \in \mathbb{Z},\ f(n+p) = f(n) \text{ and } g(n+p) = g(n)
+	      \]
+	      such that $\exists \text{ a smallest } p \in \{1,2,3,\ldots\}$
+	      \begin{equation}
+		      \langle \bm{f}, \bm{q} \rangle = \sum_{n=0}^{p-1} f(n)g^*(n)
+		      .\end{equation}
+	\item Given a vector $\bm{x}$ we define a basis
+	      $\{\bm{\psi}_{0}, \bm{\psi}_{1}, \ldots, \bm{\psi}_{p-1}\}$ such that
+	      $\bm{\psi}_{k} \perp \bm{\psi}_{l}$ for $k \neq l$. Then
+	      \begin{equation*}
+		      \bm{x}  = X_0\bm{\psi}_{0} + X_1\bm{\psi}_{1} + \ldots +X_{p-1}\bm{\psi}_{p-1}
+		      = \sum_{k=0}^{p-1} X_{k}\bm{\psi}_{k}
+	      \end{equation*}
+	      and to find $X_{l}$ we project $\bm{x}$ onto $\bm{\psi}_{l}$
+	      \begin{align*}
+		      \langle \bm{x}, \bm{\psi}_{l} \rangle & = \left\langle \sum_{k=0}^{p-1} X_{k}\bm{\psi}_{k}, \bm{\psi}_{l} \right\rangle \\
+		                                            & = \sum_{k=0}^{p-1} X_{k} \langle \bm{\psi}_{k}, \bm{\psi}_{l} \rangle
+	      \end{align*}
+	      and we know that there exists two cases for this equation, either $k=l$ or $k\neq l$.
+	      When $k=l$, $\langle \bm{\psi}_{k}, \bm{\psi}_{l} \rangle \neq 0$ otherwise when
+	      $k\neq l$ then $\langle \bm{\psi}_{k}, \bm{\psi}_{l} \rangle = 0$. Therefore,
+	      \begin{align*}
+		      \langle \bm{x}, \bm{\psi}_{l} \rangle & = \sum_{k=0}^{p-1} X_{k} \langle \bm{\psi}_{k}, \bm{\psi}_{l} \rangle \\
+		                                            & = X_{l} \langle \bm{\psi}_{l}, \bm{\psi}_{l} \rangle
+	      \end{align*}
+	      from which we can establish that
+	      \[
+		      X_{l} = \frac{\langle \bm{x}, \bm{\psi}_{l} \rangle}{\langle \bm{\psi}_{l}, \bm{\psi}_{l} \rangle}
 		      .\]
+	\item We have then derived two equations:
+	      \begin{equation}
+		      \text{(Synthesis)}\hspace{1em} \bm{x} = \sum_{k=0}^{p-1} X_{k}\bm{\psi}_{k}
+		      \quad \text{ and } \quad
+		      \text{(Analysis)}\hspace{1em} X_{l} = \frac{\langle \bm{x}, \bm{\psi}_{l} \rangle}{\langle \bm{\psi}_{l}, \bm{\psi}_{l} \rangle}
+		      .\end{equation}
+	\item Under this perspective
+	      \[
+		      \bm{\psi}_{k} =
+		      \begin{bmatrix}
+			      \psi_{k}(0) & \psi_{k}(1) & \ldots & \psi_{k}(p-1)
+		      \end{bmatrix}^T
+	      \]
+	      and each entry $\psi_{k}(n) = e^{ik\omega_{0}n}$ where $\omega_{0} = \frac{2\pi}{p}$.
+	      Observing the two different cases:
+	      \begin{enumerate}
+		      \item $k=l$,
+		            \begin{align*}
+			            \langle \bm{\psi}_{k}, \bm{\psi}_{k} \rangle & = \psi_{k}^T\psi_{k}^*                                  \\
+			                                                         & = \sum_{k=0}^{p-1} e^{ik\omega_{0}n} e^{-ik\omega_{0}n} \\
+			                                                         & = p
+		            \end{align*}
+		      \item $k\neq l$,
+		            \begin{align*}
+			            \langle \bm{\psi}_{k}, \bm{\psi}_{l} \rangle & = \sum_{k=0}^{p-1} e^{ik\omega_{0}n}e^{il\omega_{0}n} \\
+			                                                         & = \sum_{k=0}^{p-1} e^{i(k-l)\omega_{0}n}              \\
+			                                                         & = \frac{1-e^{i(k-l)\omega_{0}p}}{1-e^{i(k-l)\omega}}  \\
+			                                                         & = 0
+		            \end{align*}
+		            since $\omega_0 p = \frac{2\pi}{p} p = 2\pi$ and $e^{i2\pi} = 1$.
+	      \end{enumerate}
+	\item Note that the only frequencies that contribute come from the set
+	      $\{0, \omega_0, 2\omega_0, \ldots, (p-1)\omega_0\}$.
+	\item A very important fact is that the Fourier basis is $p$-periodic in frequency as shown below,
+	      \begin{align*}
+		      \psi_{k+p}(n) & = e^{i(k+p)\frac{2\pi}{p}n} \\
+		                    & = e^{ik\frac{2\pi}{p}n}     \\
+		                    & = \psi_{k}(n)
+		      .\end{align*}
+	\item More generally, we do not confine ourselves to a fixed interval from $0$ to $p-1$. Instead
+	      we use the contiguous set $\langle p \rangle$, since $\psi_{k}(n)$ is
+	      $p$-periodic in both the time index $n$ and frequency index $k$.
+	\item Putting everything together we can then formulate another pair for the Synthesis and Analysis equations
+	      of which are more computational,
+	      \begin{equation}
+		      x(n) = \sum_{k \in \langle p \rangle} X_{k}e^{ik\omega_0 n} \qquad \text{(Synthesis)}
+	      \end{equation}
+	      \begin{equation}
+		      X_{k} = \frac{1}{p}\sum_{k \in \langle p \rangle} x(n)e^{-ik\omega_0 n} \qquad \text{(Analysis)}
+	      \end{equation}
 \end{itemize}
+\begin{example}
+	Consider the case when $x(n) = \sum_{l=-\infty}^{\infty} \delta(n-lp)$, i.e., $x(n)$ is a
+	running impulse train. Finding the Fourier basis coefficient $X_{k}$,
+	\begin{align*}
+		X_{k} & = \frac{1}{p}\sum_{k \in \langle p \rangle} x(n)e^{-ik\omega_0 n} \\
+		      & = \frac{1}{p}\sum_{k=0}^{p-1} \delta(n)e^{-ik\omega_0 n}          \\
+		      & = \frac{1}{p}
+	\end{align*}
+	then $X_{k} = \frac{1}{p},\ \forall k \in \mathbb{Z}$.
+	\begin{itemize}
+		\item This result is akin to the \textbf{Uncertainty Principle}
+		      in physics where the signals analog is: Assuming the universe is confined to a period
+		      (e.g., $0$ to $p-1$) and if there is "little" support in the universe, then the spectrum
+		      will be everywhere.
+	\end{itemize}
+	Additionally, we can establish that
+	\[
+		x(n) = \frac{1}{p}\sum_{k \in \langle p \rangle} e^{ik\omega_0 n}
+	\]
+	for when $X_{k} = \frac{1}{p}$ for all $k$. Using this fact we have the following relation
+	\begin{equation}
+		\sum_{l=-\infty}^{\infty} \delta(n-lp) = \frac{1}{p}\sum_{k \in \langle p \rangle} e^{ik\omega_0 n}
+	\end{equation}
+	known as \textbf{Poisson's Identity}. On a last note, we can explore two particular cases:
+	\begin{enumerate}
+		\item For all $m \in \mathbb{Z}$, let $n = mp$ such that $n \mod p = 0$.
+		      \[
+			      \frac{1}{p}\sum_{k \in \langle p \rangle} e^{ik\omega_0 n} = \frac{1}{p}\sum_{k \in \langle p \rangle} e^{ik \frac{2\pi}{p} mp}
+			      = \frac{1}{p}\sum_{k \in \langle p \rangle} e^{ik 2\pi m} = 1
+			      .\]
+		\item For all $m \in \mathbb{Z}$, let $n = mp$ such that $n \mod p \neq 0$.
+		      \[
+			      \frac{1}{p}\sum_{k \in \langle p \rangle} e^{ik\omega_0 n} = \frac{1-e^{ik\omega_0 p}}{1 - e^{ik\omega_0}} = 0
+			      .\]
+	\end{enumerate}
+\end{example}
+\begin{itemize}
+	\item \textbf{LTI Filtering of periodic DT signals:} given a signal $x$ that passes through
+	      some filter with frequency response $H(\omega)$ we have that
+	      \begin{align*}
+		      x(n)                                                 & \longrightarrow  y(n)                                                            \\
+		      e^{ik\omega_0 n}                                     & \longrightarrow  H(k\omega_0)e^{ik\omega_0 n}                                    \\
+		      X_{k}e^{ik\omega_0 n}                                & \longrightarrow  H(k\omega_0)X_{k}e^{ik\omega_0 n}                               \\
+		      \sum_{k \in \langle p \rangle} X_{k}e^{ik\omega_0 n} & \longrightarrow \sum_{k \in \langle p \rangle} H(k\omega_0)X_{k}e^{ik\omega_0 n}
+	      \end{align*}
+	      where $Y_{k} = H(k\omega_0)X_{k}$ such that $y(n) = \sum_{k \in \langle p \rangle}^{n} Y_{k}e^{k\omega_0 n}$
+	\item Recall that if $x(n) = (n+lp),\ l \in \mathbb{Z} \implies x(n)$ is $p$-periodic.
+	      and if, $X_{k} = X_{k+lp} \implies X_{k}$ is also $p$-periodic. Therefore,
+	      it is redundant to keep an infinite number of copies of $x(n)$ and $X_{k}$.
+	\item Keeping one copy of $\{x(n)\}_{n=0}^{p-1}$ and $\{X_{k}\}_{k=0}^{p-1}$ gives rise to the
+	      \textbf{Discrete Fourier Transform (DFT)}.
+	\item \textbf{Matrix-Vector Formation of DTFS (DFT):} We know that $\bm{x} = \sum_{k \in \langle p \rangle} X_{k}\bm{\psi}_{k}$,
+	      which can be represented in terms of matrices as
+	      \[
+		      \begin{bmatrix}
+			      x(0)   \\
+			      x(1)   \\
+			      \vdots \\
+			      x(p-1)
+		      \end{bmatrix} =
+		      \begin{bmatrix}
+			      \psi_{0}(0)   & \psi_{1}(0)   & \cdots & \psi_{p-1}(0)   \\
+			      \psi_{0}(1)   & \psi_{1}(1)   & \cdots & \psi_{p-1}(1)   \\
+			      \vdots        & \vdots        & \ddots & \vdots          \\
+			      \psi_{0}(p-1) & \psi_{1}(p-1) & \cdots & \psi_{p-1}(p-1)
+		      \end{bmatrix}
+		      \begin{bmatrix}
+			      X_{0}  \\
+			      X_{1}  \\
+			      \vdots \\
+			      X_{p-1}
+		      \end{bmatrix}
+		      .\]
+	      From here we denote the matrix containing all Fourier basis functions as
+	      \[
+		      \bm{\Psi} =
+		      \begin{bmatrix}
+			      \uparrow      & \uparrow      & {}     & \uparrow        \\
+			      \bm{\psi}_{0} & \bm{\psi}_{1} & \cdots & \bm{\psi}_{p-1} \\
+			      \downarrow    & \downarrow    & {}     & \downarrow      \\
+		      \end{bmatrix}
+		      .\]
+	      From all of this, we can now write the Synthesis and Analysis equations in
+	      matrix-vector form as:
+	      \begin{equation*}
+		      \bm{x} = \bm{\Psi} \bm{X} \qquad \text{(Synthesis)}
+	      \end{equation*}
+	      \begin{equation*}
+		      \bm{X} = \bm{\Psi}^{-1} \bm{x} \qquad \text{(Analysis)}
+	      \end{equation*}
+	\item Note that we know that the columns of $\bm{\Psi}$ are orthogonal, then
+	      \[
+		      \bm{\Psi}^T\bm{\Psi}^* =
+		      \begin{bmatrix}
+			      \leftarrow & \bm{\psi}_{0}   & \rightarrow \\
+			      \leftarrow & \bm{\psi}_{1}   & \rightarrow \\
+			                 & \vdots          &             \\
+			      \leftarrow & \bm{\psi}_{p-1} & \rightarrow
+		      \end{bmatrix}
+		      \begin{bmatrix}
+			      \uparrow        & \uparrow        & {}     & \uparrow          \\
+			      \bm{\psi}_{0}^* & \bm{\psi}_{1}^* & \cdots & \bm{\psi}_{p-1}^* \\
+			      \downarrow      & \downarrow      & {}     & \downarrow        \\
+		      \end{bmatrix}
+		      =
+		      \begin{bmatrix}
+			      p      & 0      & \cdots & 0      \\
+			      0      & p      & \cdots & 0      \\
+			      \vdots & \vdots & \ddots & \vdots \\
+			      0      & 0      & \cdots & p
+		      \end{bmatrix} = p \bm{I}
+	      \]
+	      since $\langle \bm{\psi}_{k}, \bm{\psi}_{l} \rangle = 0$ when $k \neq l$.
+	\item Through further analysis, we now have that
+	      \[
+		      \bm{\Psi}^T \bm{\Psi}^* = p\bm{I} \implies \left(\bm{\Psi}^T\right)^* \bm{\Psi} = p\bm{I}
+		      \implies \frac{1}{p}\bm{\Psi}^H\bm{\Psi} = \bm{I} \implies \bm{\Psi}^{-1} = \frac{1}{p}\bm{\Psi}^H
+	      \]
+	      where $\bm{\Psi}^H = \left(\bm{\Psi}^T\right)^*$.
+	\item Consequently, the Synthesis and Analysis equations
+	      derived earlier can be rewritten as
+	      \begin{equation}
+		      \bm{x} = \bm{\Psi} \bm{X} \qquad \text{(Synthesis)}
+	      \end{equation}
+	      \begin{equation}
+		      \bm{X} = \frac{1}{p}\bm{\Psi}^{H} \bm{x} \qquad \text{(Analysis)}
+	      \end{equation}
+	\item As an aside,
+	      \[
+		      \left( \frac{1}{\sqrt{p}} \bm{\Psi}^H \right)
+		      \left( \frac{1}{\sqrt{p}}\bm{\Psi} \right) = \bm{I}
+	      \]
+	      and we define $\frac{1}{\sqrt{p}}\bm{\Psi}$ to be the \textbf{unitary matrix} (i.e.,
+	      a generalization of orthonormality to deal with complex valued elements).
+\end{itemize}
+\begin{theorem}[Parsevals' Theorem]~
+
+	\[
+		\sum_{n \in \langle p \rangle} \left| x(n) \right|^2 = p \sum_{k \in \langle p \rangle} \left| X_{k} \right|^2
+		.\]
+\end{theorem}
+\begin{proof}
+	\begin{align*}
+		\left\lVert x(n) \right\rVert^2 & = \langle \bm{x}, \bm{x} \rangle                                        \\
+		                                & = \bm{x}^T \bm{x}^*                                                     \\
+		                                & = \left( \bm{X}^T \bm{\Psi}^T \right) \left( \bm{\Psi}^* \bm{X} \right) \\
+		                                & = \bm{X}^T p \bm{I} \bm{X}                                              \\
+		                                & = p \bm{X}^T \bm{X}                                                     \\
+		                                & = p \langle \bm{X}, \bm{X} \rangle                                      \\
+		                                & = p \left\lVert \bm{X} \right\rVert^2 \qedhere
+	\end{align*}
+\end{proof}
